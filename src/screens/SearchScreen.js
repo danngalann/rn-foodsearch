@@ -8,6 +8,7 @@ import SearchBar from "../components/SearchBar";
 
 const SearchScreen = () => {
   const [term, setTerm] = useState("");
+  const [radius, setRadius] = useState("2000");
   const [doSearch, results, location] = useResults();
 
   const filterResultsByPrice = (price) => {
@@ -16,12 +17,25 @@ const SearchScreen = () => {
     });
   };
 
+  const updateRadius = (newRadius) => {
+    if (newRadius != radius) {
+      setRadius(newRadius);
+      updateSearch();
+    }
+  };
+
+  const updateSearch = () => {
+    doSearch(term, radius);
+  };
+
   return (
     <View style={styles.container}>
       <SearchBar
         term={term}
         onTermChange={setTerm}
-        onTermSubmit={() => doSearch(term)}
+        onTermSubmit={updateSearch}
+        radius={radius}
+        onRadiusChange={updateRadius}
       />
       <ScrollView showsVerticalScrollIndicator={false}>
         <ResultsList

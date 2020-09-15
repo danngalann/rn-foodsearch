@@ -8,12 +8,13 @@ export default () => {
   const [location, setLocation] = useState([]);
 
   // Get list of businesses
-  const searchApi = async (term, location) => {
+  const searchApi = async (term, radius, location) => {
     try {
       const { latitude, longitude } = location.coords;
       const response = await yelp.get("/search", {
         params: {
           term,
+          radius,
           limit: 50,
           latitude,
           longitude,
@@ -42,11 +43,11 @@ export default () => {
   };
 
   // Does a search after updating location
-  const doSearch = (term) => {
+  const doSearch = (term, radius) => {
     if (typeof term != "string") {
       term = "";
     }
-    getLocation(location => searchApi(term, location));
+    getLocation(location => searchApi(term, radius, location));
   };
 
   useEffect(() => {

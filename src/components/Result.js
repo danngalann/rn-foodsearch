@@ -1,8 +1,7 @@
-import React, {useEffect} from "react";
+import React, { useEffect } from "react";
 import { View, Text, StyleSheet, Image } from "react-native";
 
-const Result = ({ result, location }) => {  
-  
+const Result = ({ result, location }) => {
   const deg2rad = (deg) => {
     return deg * (Math.PI / 180);
   };
@@ -25,19 +24,25 @@ const Result = ({ result, location }) => {
 
   // Compute the distance to the restaurant into a new property
   useEffect(() => {
-    result.distance = computeDistance(result.coordinates.latitude, result.coordinates.longitude, location.latitude, location.longitude);
-  }, [])
+    result.distance = computeDistance(
+      result.coordinates.latitude,
+      result.coordinates.longitude,
+      location.latitude,
+      location.longitude
+    );
+  }, []);
 
   const { name, image_url, rating, review_count, distance } = result;
   return (
     <View style={styles.container}>
       <Image
-        source={{
-          uri:
-            image_url != ""
-              ? image_url
-              : "https://images.pexels.com/photos/67468/pexels-photo-67468.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
-        }}
+        source={
+          image_url != ""
+            ? {
+                uri: image_url,
+              }
+            : require("../../assets/nophoto.png")
+        }
         style={styles.image}
       />
       <Text style={styles.name}>{name}</Text>
