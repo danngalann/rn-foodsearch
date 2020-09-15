@@ -7,6 +7,7 @@ import {
   Image,
   ScrollView,
 } from "react-native";
+import MapView, {Marker} from "react-native-maps";
 
 import yelp from "../api/yelp";
 
@@ -30,27 +31,44 @@ const ResultDetail = ({ navigation }) => {
 
   return (
     <View style={{ flex: 1 }}>
-      <Text>{result.name}</Text>
-      <FlatList
-        horizontal
-        showsHorizontalScrollIndicator={false}
-        data={result.photos}
-        keyExtractor={(photo) => photo}
-        renderItem={({ item }) => {
-          return (
-            <ScrollView showsVerticalScrollIndicator={false}>
-              <Image style={styles.image} source={{ uri: item }} />
-            </ScrollView>
-          );
-        }}
-      />
+      <Text style={styles.header}>{result.name}</Text>
+      <ScrollView showsVerticalScrollIndicator={false}>
+        <FlatList
+          horizontal
+          showsHorizontalScrollIndicator={false}
+          data={result.photos}
+          keyExtractor={(photo) => photo}
+          renderItem={({ item }) => {
+            return <Image style={styles.image} source={{ uri: item }} />;
+          }}
+        />
+        <MapView
+          style={styles.map}
+          initialRegion={{
+            latitude: result.coordinates.latitude,
+            longitude: result.coordinates.longitude,
+            latitudeDelta: 0.0022,
+            longitudeDelta: 0.0021,
+          }}
+        >
+          <Marker coordinate={result.coordinates} title={result.name} />
+        </MapView>
+      </ScrollView>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
-  header: {},
+  header: {
+    textAlign: "center",
+    fontSize: 24,
+    fontWeight: "bold",
+  },
   image: { height: 200, width: 300 },
+  map: {
+    width: 400,
+    height: 200,
+  },
 });
 
 export default ResultDetail;
