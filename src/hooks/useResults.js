@@ -9,6 +9,10 @@ export default () => {
 
   // Get list of businesses
   const searchApi = async (term, radius, location) => {
+    // Sanitize radius
+    radius = radius == undefined ? 2000 : radius;
+    radius =  typeof radius  == 'string' ? Number(radius) : radius;
+
     try {
       const { latitude, longitude } = location.coords;
       const response = await yelp.get("/search", {

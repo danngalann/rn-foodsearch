@@ -8,17 +8,16 @@ import {
 } from "react-native";
 import Result from "./Result";
 
-import {withNavigation} from 'react-navigation'
+import { withNavigation } from "react-navigation";
 
 const ResultsList = ({ header, results, location, navigation }) => {
-
-  if(!results.length) {
+  if (!results.length) {
     return null;
   }
 
   return (
     <View>
-      <Text style={styles.header}>{header}</Text>
+      <Text style={styles.header}>{header} ({results.length})</Text>
       <FlatList
         horizontal
         showsHorizontalScrollIndicator={false}
@@ -26,7 +25,11 @@ const ResultsList = ({ header, results, location, navigation }) => {
         keyExtractor={(result) => result.id}
         renderItem={({ item }) => {
           return (
-            <TouchableOpacity onPress={() => navigation.navigate('ResultsDetail', {id: item.id})}>
+            <TouchableOpacity
+              onPress={() =>
+                navigation.navigate("ResultsDetail", { id: item.id })
+              }
+            >
               <Result result={item} location={location} />
             </TouchableOpacity>
           );
