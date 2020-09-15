@@ -17,13 +17,13 @@ const SearchScreen = () => {
   };
 
   return (
-    <>
+    <View style={styles.container}>
       <SearchBar
         term={term}
         onTermChange={setTerm}
         onTermSubmit={() => doSearch(term)}
       />
-      <ScrollView>
+      <ScrollView showsVerticalScrollIndicator={false}>
         <ResultsList
           header="Cost effective"
           results={filterResultsByPrice("€")}
@@ -45,10 +45,15 @@ const SearchScreen = () => {
           location={location}
         />
       </ScrollView>
-    </>
+    </View>
   );
 };
 
-const styles = StyleSheet.create();
+const styles = StyleSheet.create({
+  container: {
+    backgroundColor: "white",
+    flex: 1,
+  },
+});
 
 export default SearchScreen;
