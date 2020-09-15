@@ -8,7 +8,7 @@ import SearchBar from "../components/SearchBar";
 
 const SearchScreen = () => {
   const [term, setTerm] = useState("");
-  const [doSearch, results] = useResults();
+  const [doSearch, results, location] = useResults();
 
   const filterResultsByPrice = (price) => {
     return results.filter((result) => {
@@ -23,15 +23,27 @@ const SearchScreen = () => {
         onTermChange={setTerm}
         onTermSubmit={() => doSearch(term)}
       />
-      {/* <Text>{JSON.stringify(results[0])}</Text> */}
       <ScrollView>
         <ResultsList
           header="Cost effective"
           results={filterResultsByPrice("€")}
+          location={location}
         />
-        <ResultsList header="Pricier" results={filterResultsByPrice("€€")} />
-        <ResultsList header="Expender" results={filterResultsByPrice("€€€")} />
-        <ResultsList header="Rich ass motherfucker" results={filterResultsByPrice("€€€€")} />
+        <ResultsList
+          header="Pricier"
+          results={filterResultsByPrice("€€")}
+          location={location}
+        />
+        <ResultsList
+          header="Expender"
+          results={filterResultsByPrice("€€€")}
+          location={location}
+        />
+        <ResultsList
+          header="Rich ass motherfucker"
+          results={filterResultsByPrice("€€€€")}
+          location={location}
+        />
       </ScrollView>
     </>
   );

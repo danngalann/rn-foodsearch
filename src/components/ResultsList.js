@@ -2,7 +2,7 @@ import React from "react";
 import { View, Text, StyleSheet, FlatList } from "react-native";
 import Result from './Result';
 
-const ResultsList = ({ header, results }) => {
+const ResultsList = ({ header, results, location }) => {
   return (
     <View>
       <Text style={styles.header}>{header}</Text>
@@ -12,7 +12,7 @@ const ResultsList = ({ header, results }) => {
         data={results}
         keyExtractor={(result) => result.id}
         renderItem={({ item }) => {
-          return <Result result={item} />
+          return <Result result={item} location={location} />
         }}
       />
     </View>

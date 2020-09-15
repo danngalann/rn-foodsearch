@@ -20,10 +20,10 @@ const Result = ({ result, location }) => {
         Math.sin(dLon / 2);
     var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
     var d = R * c; // Distance in km
-    return d;
+    return d.toFixed(2);
   };
 
-  const { name, image_url, rating, review_count } = result;
+  const { name, image_url, rating, review_count, coordinates } = result;
   return (
     <View style={styles.container}>
       <Image
@@ -39,7 +39,7 @@ const Result = ({ result, location }) => {
       <Text style={styles.info}>
         {rating} stars, {review_count} reviews
       </Text>
-      {/* <Text>At {computeDistance(result.latitude, result.logitude, location.latitude, location.longitude)}km (aprox)</Text> */}
+      <Text>At {computeDistance(coordinates.latitude, coordinates.longitude, location.latitude, location.longitude)}km (aprox)</Text>
     </View>
   );
 };

@@ -5,6 +5,7 @@ import { Alert } from "react-native";
 
 export default () => {
   const [results, setResults] = useState([]);
+  const [location, setLocation] = useState([]);
 
   // Get list of businesses
   const searchApi = async (term, location) => {
@@ -19,6 +20,7 @@ export default () => {
         },
       });
       setResults(response.data.businesses);
+      setLocation(location.coords)
     } catch (e) {
       Alert.alert(`Something went wrong.`);
       console.log(e.message);
@@ -51,5 +53,5 @@ export default () => {
     doSearch();
   }, []);
 
-  return [doSearch, results];
+  return [doSearch, results, location];
 };
